@@ -142,9 +142,11 @@ class RLAgent:
                     RD_fwd = RD_fwd - 0.5
                     RD_bck = RD_bck - 0.5
                     
+                    # Bias modifier (tune this)
+                    BiasMod = 10
                     # Assign bias
-                    Bias[(state,FORWARD)] = RD_fwd
-                    Bias[(state,REVERSE)] = RD_bck
+                    Bias[(state,FORWARD)] = RD_fwd * BiasMod
+                    Bias[(state,REVERSE)] = RD_bck * BiasMod
                     
                     # Apply bias to Q-value
                     self.q_values[(state, FORWARD)] = self.q_values.get((state, FORWARD), 0) + Bias[(state,FORWARD)]
